@@ -6,10 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "nodemon -- quiet ./api/app.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "passport": "0.6.0",
+    "passport-http-bearer": "1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -21,6 +24,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "express-routes-versioning": "1.0.1",
     "vite": "^4.4.5"
   }
 }

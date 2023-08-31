@@ -1,0 +1,59 @@
+use("db_users");
+
+db.createCollection("users", {
+    capped: false,
+    validator: {
+        $jsonSchema: {
+            "bsonType": "object",
+            required: ["id", "name", "password", "rol"],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "id is required. Must be a interger"
+                },
+                name: {
+                    bsonType: "string",
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "id is required. Must be a string without special characters"
+                },
+                password: {
+                    bsonType: "string",
+                    description: "password is required. Must be a string"
+                },
+                rol: {
+                    bsonType: "string",
+                    enum: ["admin", "user"],
+                    description: "rol is required. Must be a valid string 'admin', 'user'"
+                }
+            }
+        }
+    }
+});
+
+db.users.insert({
+    id: 1,
+    name: "John Doe",
+    password: "password123",
+    rol: "admin"
+})
+
+db.users.insert({
+    id: 2,
+    name: "Jane Doe",
+    password: "password456",
+    rol: "user"
+})
+
+db.users.insert({
+    id: 3,
+    name: "Susan Smith",
+    password: "password789",
+    rol: "admin"
+})
+
+db.users.insert({
+    id: 4,
+    name: "Peter Jones",
+    password: "password1011",
+    rol: "user"
+})
