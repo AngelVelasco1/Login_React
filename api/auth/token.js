@@ -16,9 +16,10 @@ export const createToken = async(res, req, next) => {
     const jwtConstructor = await new SignJWT({ id: id})
         .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
         .setIssuedAt()
-        .setExpirationTime('3h')
-        .sign(encoder.encode(CONFIG.key));
-    res.status(200).json({token: jwtConstructor});
+        .setExpirationTime('1h')
+        .sign(encoder.encode(CONFIG.private_key));
+
+    req.data = {status: 200, token: jwtConstructor};
     next(); 
 } 
 
@@ -34,7 +35,7 @@ export const validateToken = async(req,  token) => {
 
         let {_id, allowances, ...users} = res
         if(!res.allowances[req.baseUrl].includes(req.method)) return { error: "Don't accepted for this method"}
-        
+    
         return users
     }
     catch(err) {

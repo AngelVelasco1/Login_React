@@ -1,10 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Formulary from './components/Formulario'
-
+import ReactDOM from 'react-dom/client';
+import { Router } from './Router';
 
 ReactDOM.createRoot(document.querySelector('#root')).render(
   <React.StrictMode>
-    <Formulary />
+    <Router />
   </React.StrictMode>,
 )
