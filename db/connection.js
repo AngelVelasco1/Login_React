@@ -9,7 +9,11 @@ const options = {
 }
 
 export const getConx = async() => {
-    const client = await MongoClient.connect(uri, options);
-    return client.db;
+    try {
+        const client = await MongoClient.connect(uri, options);
+        return client.db;
+    } catch(err) {
+        console.error({error: err.message});
+    }
 }
 
