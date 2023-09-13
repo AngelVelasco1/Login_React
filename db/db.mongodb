@@ -1,11 +1,25 @@
-use("db_users");
+use("login");
+
+db.createCollection("counter");
+db.counters.insertOne({
+    counter: "usersId", sequence: 0
+})
+const autoIncrement = (collection) => {
+    const update = db.counters.findOneAndUpdate(
+       { counter: `${collection}Id`},
+       { $inc: { sequence: 1 }},
+       { returnOriginal: false },
+       { returnDocument: "after" }
+    )
+    return update.sequence
+}
 
 db.createCollection("users", {
     capped: false,
     validator: {
         $jsonSchema: {
             "bsonType": "object",
-            required: ["id", "name", "password", "rol"],
+            required: ["id", "name", "password", "role"],
             properties: {
                 id: {
                     bsonType: "int",
@@ -20,40 +34,63 @@ db.createCollection("users", {
                     bsonType: "string",
                     description: "password is required. Must be a string"
                 },
-                rol: {
+                role: {
                     bsonType: "string",
                     enum: ["admin", "user"],
                     description: "rol is required. Must be a valid string 'admin', 'user'"
+                },
+                allowances: {
+                    bsonType: "object",
+                    properties: {
+                        "/app": {
+                            bsonType: "array",
+                            items: {
+                                bsonType: "string"
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 });
 
-db.users.insert({
-    id: 1,
-    name: "John Doe",
-    password: "password123",
-    rol: "admin"
-})
+db.users.insertMany([
+    {
+        id: autoIncrement("users"),
+        name: "John Doe",
+        password: "password123",
+        role: "admin",
+        allowances: {
+            "/app": ["1.0.0", "GET", "POST", "PATCH", "DELETE"]
+        }
+    },
+    db.users.insert({
+        id: autoIncrement("users"),
+        name: "Jane Doe",
+        password: "password456",
+        role: "user",
+        allowances: {
+            "/app": ["1.0.0", "GET"]
+        }
+    }),   
+    db.users.insert({
+        id: autoIncrement("users"),
+        name: "Susan Smith",
+        password: "password789",
+        role: "admin",
+        allowances: {
+            "/app": ["1.0.0", "GET", "POST", "PATCH", "DELETE"]
+        }
+    }),  
+    db.users.insert({
+        id: autoIncrement("users"),
+        name: "Peter Jones",
+        password: "password1011",
+        role: "user",
+        allowances: {
+            "/app": ["1.0.0", "GET"]
+        }
+    }),
+])
 
-db.users.insert({
-    id: 2,
-    name: "Jane Doe",
-    password: "password456",
-    rol: "user"
-})
-
-db.users.insert({
-    id: 3,
-    name: "Susan Smith",
-    password: "password789",
-    rol: "admin"
-})
-
-db.users.insert({
-    id: 4,
-    name: "Peter Jones",
-    password: "password1011",
-    rol: "user"
-})
