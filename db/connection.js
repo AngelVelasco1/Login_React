@@ -1,10 +1,7 @@
 import { MongoClient } from "mongodb";
 import { CONFIG } from "../api/config/credentials.js"
 
-const uri = `mongodb+srv://${CONFIG.user}:${CONFIG.password}@cluster0.tfk8jyc.mongodb.net/${CONFIG.db}`
-
-
-; 
+const uri = `mongodb+srv://${CONFIG.user}:${CONFIG.password}@cluster0.tfk8jyc.mongodb.net/${CONFIG.db}`; 
 const options = {
     retryWrites: true
 }
@@ -12,7 +9,7 @@ const options = {
 export const getConx = async() => {
     try {
         const client = await MongoClient.connect(uri, options);
-        return client.db;
+        return client.db();
     } catch(err) {
         console.error({error: err.message});
     }
