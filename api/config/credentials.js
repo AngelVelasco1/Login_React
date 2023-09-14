@@ -1,9 +1,10 @@
 import dotenv from "dotenv"
-
-dotenv.config();
+dotenv.config("../../");
 
 export const CONFIG = {
     "server":  JSON.parse(process.env.SERVER),
-    "mongo_uri": process.env.MONGO_URI,
+    "user": process.env.USER,
+    "password": process.env.PASSWORD,
+    "db": process.env.DB,
     "private_key": process.env.PRIVATE_KEY
 }

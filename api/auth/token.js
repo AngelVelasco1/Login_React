@@ -10,8 +10,7 @@ export const createToken = async(res, req, next) => {
     if (Object.keys(req.body).length === 0) return res.status(400).send({message: "Data not founded"});
     
     const result = await db.collection('users').findOne(req.body);
-    if (!result) return res.status(401).send({mesaage: "User not found"});
-
+    if (!result) return res.status(401).send({message: "User not found"});
     const id = result._id.toString();
     const jwtConstructor = await new SignJWT({ id: id})
         .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
@@ -33,9 +32,9 @@ export const validateToken = async(req,  token) => {
             }
         );
 
-        let {_id, allowances, ...users} = res
         if(!res.allowances[req.baseUrl].includes(req.method)) return { error: "Don't accepted for this method"}
-    
+        
+        let {_id, allowances, ...users} = res
         return users
     }
     catch(err) {

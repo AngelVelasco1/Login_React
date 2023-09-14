@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "nodemon -- quiet ./api/app.js",
+    "start": "nodemon --quiet ./api/app.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "16.3.1",
     "express-rate-limit": "^7.0.0",
     "jose": "4.14.6",
