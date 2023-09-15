@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { CONFIG } from "../api/config/credentials.js"
+import { CONFIG } from "../config/credentials.js"
 
 const uri = `mongodb+srv://${CONFIG.user}:${CONFIG.password}@cluster0.tfk8jyc.mongodb.net/${CONFIG.db}`; 
 const options = {
