@@ -7,9 +7,7 @@ import { limitGrt } from "../helpers/limit.js"
 export const loginStorage = Router();
 
 
-loginStorage.use(express.urlencoded({ extended: true }));
 
+loginStorage.use(limitGrt());
 
-loginStorage.use(limitGrt(), createToken);
-
-loginStorage.post("/", loginV1)
+loginStorage.post("/", createToken, loginV1)

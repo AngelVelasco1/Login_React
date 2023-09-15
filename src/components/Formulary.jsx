@@ -20,7 +20,7 @@ export const Formulary = () => {
     }
 
     const getJWT = async() => {
-        const response = await fetch("localhost:8090/login", {
+        const response = await fetch("127.0.0.1:9080/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -35,7 +35,6 @@ export const Formulary = () => {
         const responseData = await getJWT();
 
         setData(responseData);
-        <Outlet context = {data} />
 
         if (!responseData.ok) {
             alert("Invalid username or password");
@@ -51,6 +50,9 @@ export const Formulary = () => {
             <input type="text" name= "username" placeholder="username" onChange= {handleUsername}/>
             <input type="text" name= "password" placeholder="password" onChange= {handlePassword}/>
             <button onClick= {handleSubmit}>Send</button>
+
+            <Outlet context = {data} />
+
         </>
     )
 }
