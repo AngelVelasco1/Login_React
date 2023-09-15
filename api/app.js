@@ -4,9 +4,9 @@ import { CONFIG } from "./config/credentials.js";
 import { loginStorage } from "./routes/login.js";
 
 const app = express();
+app.use(cors());
 app.use(express.text());
 app.use(express.json());
-app.use(cors());
 
 app.use("/login", loginStorage);
 

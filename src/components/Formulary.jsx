@@ -1,57 +1,67 @@
+import React from "react";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 export const Formulary = () => {
     const [data, setData] = useState({
-        username: "",
+        name: "",
         password: ""
-    })
-    const handleUsername = (event) => {
+    });
+    const [token, setToken] = useState("");
+
+    const handleName = (e) => {
         setData({
             ...data,
-            username: event.target.value
+            name: e.target.value
         })
-    }
-    const handlePassword = (event) => {
+    };
+    const handlePassword = (e) => {
         setData({
             ...data,
-            password: event.target.value
+            password: e.target.value
         })
-    }
-
-    const getJWT = async() => {
-        const response = await fetch("127.0.0.1:9080/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-        return response;
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const responseData = await getJWT();
-
-        setData(responseData);
-
-        if (!responseData.ok) {
-            alert("Invalid username or password");
-        } else {
-            alert("Login successful");
-        }
+    };
     
+
+    const getData = async () => {
+        const response = await fetch("http://127.25.32.125:9080/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+        
+        const responseJson = await response.json();
+        return responseJson;
+    }
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const responseData = await getData()
+        setData(responseData)
+        
+        if (!responseData.message) {
+            const jwt = responseData.token;
+            setToken(jwt)
+            alert("Login successful");
+
+        } else {
+            alert("Invalid name or password");
+        }
+
     }
 
     return (
         <>
             <h1>Log In</h1>
-            <input type="text" name= "username" placeholder="username" onChange= {handleUsername}/>
-            <input type="text" name= "password" placeholder="password" onChange= {handlePassword}/>
-            <button onClick= {handleSubmit}>Send</button>
+            <input type="text" name="name" placeholder="name" onChange={handleName} />
+            <input type="text" name="password" placeholder="password" onChange={handlePassword} />
+            <button onClick={(e) => { handleSubmit(e) }}>Send</button>
 
-            <Outlet context = {data} />
+            <Outlet context={[data]} />
 
         </>
     )

@@ -3,6 +3,8 @@ import { CONFIG } from "../config/credentials.js"
 
 const uri = `mongodb+srv://${CONFIG.user}:${CONFIG.password}@cluster0.tfk8jyc.mongodb.net/${CONFIG.db}`; 
 const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     retryWrites: true
 }
 
