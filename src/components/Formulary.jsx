@@ -20,7 +20,7 @@ export const Formulary = () => {
     }
 
     const getJWT = async() => {
-        const response = await fetch("localhost:8080/app/login", {
+        const response = await fetch("localhost:8090/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

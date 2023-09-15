@@ -44,7 +44,7 @@ db.createCollection("users", {
                 allowances: {
                     bsonType: "object",
                     properties: {
-                        "/": {
+                        "/app": {
                             bsonType: "array",
                             items: {
                                 bsonType: "string"
@@ -64,7 +64,7 @@ db.users.insertMany([
         password: "password123",
         role: "admin",
         allowances: {
-            "/": ["1.0.0", "GET", "POST", "PATCH", "DELETE"]
+            "/app": ["1.0.0", "GET", "POST", "PATCH", "DELETE"]
         }
     },
     db.users.insert({
@@ -73,7 +73,7 @@ db.users.insertMany([
         password: "password456",
         role: "user",
         allowances: {
-            "/": ["1.0.0", "GET"]
+            "/app": ["1.0.0", "GET"]
         }
     }),   
     db.users.insert({
@@ -82,7 +82,7 @@ db.users.insertMany([
         password: "password789",
         role: "admin",
         allowances: {
-            "/": ["1.0.0", "GET", "POST", "PATCH", "DELETE"]
+            "/app": ["1.0.0", "GET", "POST", "PATCH", "DELETE"]
         }
     }),  
     db.users.insert({
@@ -91,7 +91,7 @@ db.users.insertMany([
         password: "password1011",
         role: "user",
         allowances: {
-            "/": ["1.0.0", "GET"]
+            "/app": ["1.0.0", "GET"]
         }
     }),
 ])

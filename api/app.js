@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(cors());
 
 
-
 app.use("/login", loginStorage);
 
 app.listen(CONFIG.server, ()=>{
