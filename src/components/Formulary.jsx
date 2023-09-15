@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export const Formulary = () => {
+    const navigate = useNavigate();
     const [data, setData] = useState({
         name: "",
         password: ""
@@ -42,11 +43,12 @@ export const Formulary = () => {
         e.preventDefault();
         const responseData = await getData()
         setData(responseData)
-        
+
         if (!responseData.message) {
             const jwt = responseData.token;
             setToken(jwt)
             alert("Login successful");
+            navigate("/")
 
         } else {
             alert("Invalid name or password");

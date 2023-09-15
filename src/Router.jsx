@@ -6,8 +6,8 @@ export const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-            <Route path= "" element= {<HomeRouter />} />
-              <Route path= "login/" element= {<FormularyRouter />} />
+            <Route path= "/" element= {<HomeRouter />} />
+              <Route path= "/login/" element= {<FormularyRouter />} />
             </Routes>
         </BrowserRouter>
     )

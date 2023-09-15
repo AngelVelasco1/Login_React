@@ -25,7 +25,7 @@ export const createToken = async(req, res, next) => {
         req.data = {status: 200, token: jwtConstructor};
         next(); 
     } catch(err) {
-        console.log({message: err.message});
+        console.log({messagee: err.message});
     }
 } 
 
