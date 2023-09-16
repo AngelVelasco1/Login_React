@@ -52,6 +52,7 @@ export const Formulary = () => {
 
         } else {
             alert("Invalid name or password");
+            navigate("/")
         }
 
     }
