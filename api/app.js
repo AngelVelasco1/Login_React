@@ -10,6 +10,6 @@ app.use(express.json());
 
 app.use("/login", loginStorage);
 
-app.listen(CONFIG.server, ()=>{
-    console.log(`Listening on ${CONFIG.server.hostname}:${CONFIG.server.port}`);
+app.listen(CONFIG, ()=>{
+    console.log(`Listening on ${CONFIG.hostname}:${CONFIG.port}`);
 })

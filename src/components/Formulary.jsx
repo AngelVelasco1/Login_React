@@ -25,7 +25,7 @@ export const Formulary = () => {
     
 
     const getData = async () => {
-        const response = await fetch("http://127.25.32.125:9080/login",
+        const response = await fetch(`http://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_PORT_BACKEND}/login/`,
             {
                 method: "POST",
                 headers: {
